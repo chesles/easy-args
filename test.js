@@ -14,9 +14,11 @@ function test_basic() {
 
 function test_defaults() {
   var argv = make_argv('node test.js')
-    , port = easy_args('port', {default: 8080}, argv)
+    , port = easy_args('port', { default: 8080 }, argv)
+    , host = easy_args('host', { default: '' }, argv)
 
   assert.strictEqual(port, 8080)
+  assert.strictEqual(host, '')
   assert.strictEqual(easy_args('nonexistent'), null)
 }
 

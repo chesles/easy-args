@@ -32,18 +32,12 @@ function apply_options(index, value, options) {
   if (options.array && typeof value == 'string')
     value = value.split(options.separator || ',')
 
-  if (options.numbers !== false && value !== null)
+  if (options.numbers !== false)
     value = Array.isArray(value)
       ? value.map(makenum)
       : makenum(value)
 
   return value
-}
-
-function makenum(v) {
-  var n
-  if (!isNaN(n = Number(v))) return n
-  else return v
 }
 
 function normalize_arguments(names, options, argv) {
@@ -89,10 +83,6 @@ function normalize_arguments(names, options, argv) {
     }
   }
 
-  // don't convert flags to numbers
-  if (options.flag)
-    options.numbers = false
-
   return {
     names: names,
     options: options,
@@ -132,7 +122,19 @@ function process_batch(batch, argv) {
   return results
 }
 
-function toUpper(s) { return s.toUpperCase() }
+function toUpper(s) {
+  return s.toUpperCase()
+}
+
+function makenum(v) {
+  var n
+  // booleans, empty string, and null shouldn't get converted to numbers
+  if (v === true || v === false || v === '' || v === null) return v
+  if (!isNaN(n = Number(v))) return n
+  else return v
+}
+
+
 function isObject(o) {
   var type = typeof o
   return type === 'function' || type === 'object' && !!o && !Array.isArray(o)
