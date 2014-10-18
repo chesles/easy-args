@@ -1,0 +1,15 @@
+{
+  "name": "easy-args",
+  "version": "1.0.0",
+  "description": "Super Simple Command Line Argument Reader",
+  "main": "easy.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "argv",
+    "parsing"
+  ],
+  "author": "John Chesley <john@chesl.es>",
+  "license": "MIT"
+}
